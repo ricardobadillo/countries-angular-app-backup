@@ -1,21 +1,34 @@
+// Angular.
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { CountryService } from '../../services/country.service';
-import { Country } from '../../interfaces/country-interface';
+import { RouterModule } from '@angular/router';
+
+// Componentes.
+import { InputComponent } from 'src/app/components/input/input.component';
+import { TableComponent } from 'src/app/components/table/table.component';
+
+// Modelos.
+import { Country } from '../../core/interfaces/country-interface';
+
+// Servicios.
+import { CountryService } from '../../core/services/country.service';
 
 
 
 @Component({
+  imports: [ NgFor, NgIf, RouterModule, InputComponent, TableComponent, ],
+  standalone: true,
   selector: 'app-country',
-  templateUrl: './country.component.html',
   styles: [
     `
       li {
         cursor: pointer;
       }
-    `
-  ]
+      `
+  ],
+  templateUrl: './country.component.html',
 })
-export class CountryComponent {
+export default class CountryComponent {
 
   inputText: string = '';
   error: boolean = false;
@@ -29,7 +42,7 @@ export class CountryComponent {
     this.showSuggestion = false;
     this.error = false;
     this.inputText = inputText;
-    
+
     this.countryService.searchCountry(this.inputText)
       .subscribe( (countries) => {
           this.countries = countries;

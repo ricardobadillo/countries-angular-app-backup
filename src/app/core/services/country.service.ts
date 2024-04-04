@@ -16,7 +16,7 @@ export class CountryService {
   constructor(private http:HttpClient) { }
 
   searchCountry(countryText: string): Observable<Country[]> {
-    
+
     const url = `${this.apiUrl}/name/${countryText}`;
     return this.http.get<Country[]>(url);
       // .pipe(
@@ -25,7 +25,7 @@ export class CountryService {
   }
 
   searchCountryCapital(capitalText: string): Observable<Country[]> {
-    
+
     const url = `${this.apiUrl}/capital/${capitalText}`;
     return this.http.get<Country[]>(url);
   }
@@ -37,7 +37,7 @@ export class CountryService {
   }
 
   getCountry(id: string): Observable<Country> {
-    
+
     const url = `${this.apiUrl}/alpha/${id}`;
     return this.http.get<Country>(url);
   }

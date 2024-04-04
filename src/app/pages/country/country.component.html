@@ -8,8 +8,8 @@
 </div>
 
 <ul *ngIf="showSuggestion" class="list-group">
-    <li 
-        *ngFor="let country of countriesSuggestion" 
+    <li
+        *ngFor="let country of countriesSuggestion"
         class="list-group-item list-group-item-action"
     >
         <a class="nav-link" [routerLink]="['/country', country.cca3]"> {{ country.name.common }} </a>

@@ -1,18 +1,27 @@
+// Angular.
+import { DecimalPipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CountryService } from '../../services/country.service';
-import { Country } from '../../interfaces/country-interface';
+
+// Modelos.
+import { Country } from '../../core/interfaces/country-interface';
+
+// RXJS.
 import { switchMap, tap } from 'rxjs/operators';
+
+// Servicios.
+import { CountryService } from '../../core/services/country.service';
 
 
 
 @Component({
+  imports: [ DecimalPipe, NgIf, ],
+  standalone: true,
   selector: 'app-show-country',
+  styles: [ ],
   templateUrl: './show-country.component.html',
-  styles: [
-  ]
 })
-export class ShowCountryComponent implements OnInit {
+export default class ShowCountryComponent implements OnInit {
 
   country!: Country;
 

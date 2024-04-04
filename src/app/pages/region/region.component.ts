@@ -1,18 +1,28 @@
+// Angular.
+import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { Country } from '../../interfaces/country-interface';
-import { CountryService } from '../../services/country.service';
+
+// Componentes.
+import { TableComponent } from 'src/app/components/table/table.component';
+
+// Modelos.
+import { Country } from '../../core/interfaces/country-interface';
+
+// Servicios.
+import { CountryService } from '../../core/services/country.service';
 
 
 
 @Component({
+  imports: [ NgFor, NgIf, TitleCasePipe, TableComponent, ],
+  standalone: true,
   selector: 'app-region',
+  styles: [ ],
   templateUrl: './region.component.html',
-  styles: [
-  ]
 })
-export class RegionComponent {
+export default class RegionComponent {
 
-  regions: string[] = ['africa', 'americas', 'asia', 'europe', 'oceania']; 
+  regions: string[] = ['africa', 'americas', 'asia', 'europe', 'oceania'];
   activeRegion: string = '';
   countries: Country[] = [];
 

@@ -1,20 +1,25 @@
+// Angular.
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+// RXJS.
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 
 
 @Component({
-  selector: 'app-input',
+  imports: [ FormsModule, ],
+  standalone: true,
   templateUrl: './input.component.html',
-  styles: [
-  ]
+  selector: 'app-input',
+  styles: [ ]
 })
 export class InputComponent implements OnInit {
 
   @Output() onEnter: EventEmitter<string> = new EventEmitter();
   @Output() onDebounce: EventEmitter<string> = new EventEmitter();
-  
+
   // Observable manual.
   debouncer: Subject<string> = new Subject();
 
