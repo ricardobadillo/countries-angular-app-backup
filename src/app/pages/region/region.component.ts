@@ -22,9 +22,9 @@ import { CountryService } from '../../core/services/country.service';
 })
 export default class RegionComponent {
 
-  regions: string[] = ['africa', 'americas', 'asia', 'europe', 'oceania'];
   activeRegion: string = '';
   countries: Country[] = [];
+  regions: string[] = ['africa', 'americas', 'asia', 'europe', 'oceania'];
 
   constructor(private countryService: CountryService) { }
 

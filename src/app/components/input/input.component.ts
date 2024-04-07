@@ -3,44 +3,42 @@ import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 // RXJS.
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, Subject } from 'rxjs';
 
 
 
 @Component({
   imports: [ FormsModule, ],
-  standalone: true,
-  templateUrl: './input.component.html',
   selector: 'app-input',
-  styles: [ ]
+  standalone: true,
+  styles: [ ],
+  templateUrl: './input.component.html',
 })
 export class InputComponent implements OnInit {
 
-  @Output() onEnter: EventEmitter<string> = new EventEmitter();
-  @Output() onDebounce: EventEmitter<string> = new EventEmitter();
-
-  // Observable manual.
   debouncer: Subject<string> = new Subject();
+  textInput = '';
 
-  inputText: string = '';
+  @Output()
+  public onValue: EventEmitter<string> = new EventEmitter();
+
+  @Output()
+  public onDebounce: EventEmitter<string> = new EventEmitter();
+
 
   ngOnInit() {
-    this.debouncer
-    .pipe(debounceTime(300))
-    .subscribe(value => {
-      this.onDebounce.emit(value);
+    this.debouncer.pipe(debounceTime(3000)).subscribe({
+      next: (value: string) => {
+        this.onDebounce.emit(value);
+      }
     });
   }
 
-  constructor() { }
-
-  keyPressed(event: any) {
-    this.debouncer.next(this.inputText);
+  emitValue(textInput: string): void {
+    this.onValue.emit(textInput);
   }
 
-  search() {
-    this.onEnter.emit(this.inputText);
-
+  searchFromFormEvent(textInput: string): void {
+    this.debouncer.next(textInput);
   }
 }

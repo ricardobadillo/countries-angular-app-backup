@@ -1,23 +1,24 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>#</th>
-      <th>Bandera</th>
-      <th>Nombre</th>
-      <th>Población</th>
-      <th>Más</th>
+      <th> # </th>
+      <th> Bandera </th>
+      <th> Nombre </th>
+      <th> Población </th>
+      <th> Más </th>
     </tr>
   </thead>
+
   <tbody>
-    <tr *ngFor="let country of Countries; let i = index">
-      <td> {{ i+1 }} </td>
+    <tr *ngFor="let country of countries; let i = index">
+      <td> {{ i + 1 }} </td>
       <td>
-        <img [src]="country.flags.png" style="width: 50px;">
+        <img [alt]="country.name.common" src]="country.flags.png" [style.width.px]="50">
       </td>
       <td> {{ country.name.common }} </td>
       <td> {{ country.population | number }} </td>
       <td>
-        <a [routerLink]="['/country', country.cca3 ]">Más</a>
+        <a [routerLink]="['/country', country.cca3 ]"> Más </a>
       </td>
     </tr>
   </tbody>

@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col">
-        <app-input (onEnter)="search( $event )" (onDebounce)="suggestion( $event )"></app-input>
+        <app-input (onValue)="search($event)" (onDebounce)="suggestion( $event )"></app-input>
     </div>
 </div>
 
@@ -27,6 +27,6 @@
 
 <div *ngIf="countries.length > 0" class="row">
     <div class="col">
-        <app-table [Countries]="countries"></app-table>
+        <app-table [countries]="countries"></app-table>
     </div>
 </div>

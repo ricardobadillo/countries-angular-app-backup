@@ -25,16 +25,22 @@ export default class ShowCountryComponent implements OnInit {
 
   country!: Country;
 
-  constructor( private activatedRoute: ActivatedRoute, private countryService: CountryService ) { }
+  constructor(private activatedRoute: ActivatedRoute, private countryService: CountryService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params
       .pipe(
-        switchMap( (param) => this.countryService.getCountry(param.id)),
+        switchMap((param) => this.countryService.getCountry(param.id)),
         tap(console.log)
       )
-      .subscribe( country => {
-        this.country = country[0];
+      .subscribe({
+        next: (country) => {
+          this.country = country[0];
+          console.log(this.country);
+        },
+        error: (error) => {
+          console.error(error);
+        }
       });
   }
 

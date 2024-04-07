@@ -10,12 +10,13 @@ import { Country } from '../../core/interfaces/country-interface';
 
 @Component({
   imports: [ DecimalPipe, NgFor, RouterModule ],
-  standalone: true,
   selector: 'app-table',
+  standalone: true,
   styles: [ ],
   templateUrl: './table.component.html'
 })
 export class TableComponent {
 
-  @Input() Countries: Country[] = [];
+  @Input()
+  public countries: Array<Country> = [];
 }

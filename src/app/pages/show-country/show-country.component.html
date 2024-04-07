@@ -1,55 +1,64 @@
 <div *ngIf="!country; else divCountry" class="alert alert-info">
-    Espere un momento...
+  Espere un momento...
 </div>
 
 <ng-template #divCountry>
-    <div class="row">
-        <div class="col-12 mb-4">
-            <h1>País: <small> {{ country.name.common }} </small></h1>
-        </div>
-
-        <div class="row">
-            <div class="col-6">
-                <h3>Bandera</h3>
-                <img class="img-thumbnail" [src]="country.flags.png" />
-            </div>
-
-            <div class="col-6">
-                <h3>Información</h3>
-                <ul class="list-group">
-                    <li class="list-group-item"><strong>Población: </strong> {{country.population | number}} </li>
-                    <li class="list-group-item"><strong>Abreviación: </strong> {{country.fifa}} </li>
-                </ul>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-12 mb-4">
+        <h1> País:
+          <small> {{ country.name.common }} </small>
+        </h1>
     </div>
 
-    <h3 class="my-4">Traducciones</h3>
     <div class="row">
-        <div class="col">
-            <span class="badge bg-primary ms-2"> {{ country.translations.ara.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.ces.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.cym.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.deu.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.est.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.fin.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.fra.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.hrv.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.hun.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.ita.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.jpn.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.kor.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.nld.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.per.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.pol.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.por.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.rus.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.slk.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.spa.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.swe.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.urd.common }} </span>
-            <span class="badge bg-primary ms-2"> {{ country.translations.zho.common }} </span>
-        </div>
+      <div class="col-6">
+        <h3> Bandera </h3>
+
+        <img class="img-thumbnail" [src]="country.flags.png"/>
+      </div>
+
+      <div class="col-6">
+        <h3> Información </h3>
+
+        <ul class="list-group">
+          <li class="list-group-item">
+            <b> Población: </b> {{ country.population | number }}
+          </li>
+          <li class="list-group-item">
+            <b> Abreviación: </b> {{ country.fifa }}
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
+
+  <h3 class="my-4"> Traducciones </h3>
+
+  <div class="row">
+    <div class="col">
+      <span class="badge bg-primary ms-2"> {{ country.translations.ara.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.ces.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.cym.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.deu.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.est.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.fin.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.fra.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.hrv.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.hun.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.ita.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.jpn.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.kor.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.nld.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.per.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.pol.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.por.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.rus.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.slk.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.spa.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.swe.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.urd.common }} </span>
+      <span class="badge bg-primary ms-2"> {{ country.translations.zho.common }} </span>
+    </div>
+  </div>
 </ng-template>
 

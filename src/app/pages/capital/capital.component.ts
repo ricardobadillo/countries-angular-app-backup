@@ -23,28 +23,29 @@ import { CountryService } from '../../core/services/country.service';
 })
 export default class CapitalComponent {
 
-  countries: Country[] = [];
-  error: boolean = false;
-  inputText: string = '';
+  countries: Array<Country> = [];
+  error = false;
+  textInput = '';
 
 
   constructor(private countryService: CountryService) { }
 
-  search(inputText: string) {
+  searchCountry(textInput: string): void {
     this.error = false;
-    this.inputText = inputText;
+    this.textInput = textInput;
 
-    this.countryService.searchCountryCapital(this.inputText)
-      .subscribe((countries) => {
-          this.countries = countries;
-      }, (e) => {
+    this.countryService.searchCountryCapital(textInput).subscribe({
+      next: (countries: Array<Country>) => this.countries = countries,
+      error: (error) => {
+        console.log(error);
         this.error = true;
         this.countries = [];
-      });
+      }
+    });
   }
 
-  suggestion(inputText: string) {
+  suggestion(textInput: string): void {
+    console.log(textInput);
     this.error = false;
-
   }
 }

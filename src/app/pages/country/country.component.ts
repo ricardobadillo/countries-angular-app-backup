@@ -30,11 +30,11 @@ import { CountryService } from '../../core/services/country.service';
 })
 export default class CountryComponent {
 
-  inputText: string = '';
-  error: boolean = false;
-  countries: Country[] = [];
-  countriesSuggestion: Country[] = [];
-  showSuggestion: boolean = false;
+  countries: Array<Country> = [];
+  countriesSuggestion: Array<Country> = [];
+  error = false;
+  inputText = '';
+  showSuggestion = false;
 
   constructor(private countryService:CountryService) { }
 
@@ -43,13 +43,13 @@ export default class CountryComponent {
     this.error = false;
     this.inputText = inputText;
 
-    this.countryService.searchCountry(this.inputText)
-      .subscribe( (countries) => {
-          this.countries = countries;
-      }, (e) => {
+    this.countryService.searchCountry(this.inputText).subscribe({
+      next: (countries: Array<Country>) => this.countries = countries,
+      error: () => {
         this.error = true;
         this.countries = [];
-      });
+      }
+    });
   }
 
   suggestion(inputText: string) {

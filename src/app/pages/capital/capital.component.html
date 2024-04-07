@@ -3,18 +3,18 @@
 
 <div class="row">
   <div class="col">
-    <app-input (onEnter)="search($event)" (onDebounce)="suggestion($event)"></app-input>
+    <app-input (onValue)="searchCountry($event)" (onDebounce)="suggestion($event)"/>
   </div>
 </div>
 
 <hr>
 
 <div *ngIf="error" class="alert alert-danger">
-  No se encontraron resultados para "{{ inputText }}"
+  No se encontraron resultados para "{{ textInput }}"
 </div>
 
 <div *ngIf="countries.length > 0" class="row">
   <div class="col">
-    <app-table [Countries]="countries"></app-table>
+    <app-table [countries]="countries"/>
   </div>
 </div>
