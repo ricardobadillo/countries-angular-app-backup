@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col">
-      <app-input (onValue)="search($event)" (onDebounce)="suggestion( $event )"/>
+      <app-input [initialValue]="textInput" (onValue)="search($event)" (onDebounce)="suggestion($event)"/>
     </div>
 </div>
 
@@ -12,19 +12,25 @@
     <a class="nav-link" [routerLink]="['/country', country.cca3]"> {{ country.name.common }} </a>
   </li>
 
-  <li class="list-group-item list-group-item-action" (click)="searchSuggestion(inputText)">
-    <a> Buscar "{{ inputText }}" </a>
+  <li class="list-group-item list-group-item-action" (click)="searchSuggestion(textInput)">
+    <a> Buscar "{{ textInput }}" </a>
   </li>
 </ul>
 
 <hr>
 
 <div *ngIf="error" class="alert alert-danger">
-    No se encontraron resultados para "{{ inputText }}"
+    No se encontraron resultados para "{{ textInput }}"
 </div>
 
 <div *ngIf="countries.length > 0" class="row">
   <div class="col">
     <app-table [countries]="countries"/>
   </div>
+</div>
+
+<div class="overlay-spinner" *ngIf="showSpinner">
+  <svg>
+    <circle cx="70" cy="70" r="70"></circle>
+  </svg>
 </div>

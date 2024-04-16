@@ -1,9 +1,9 @@
 // Angular.
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 // RXJS.
-import { debounceTime, Subject } from 'rxjs';
+import { debounceTime, Subject, Subscription } from 'rxjs';
 
 
 
@@ -14,24 +14,29 @@ import { debounceTime, Subject } from 'rxjs';
   styles: [ ],
   templateUrl: './input.component.html',
 })
-export class InputComponent implements OnInit {
+export class InputComponent implements OnDestroy, OnInit {
 
-  debouncer: Subject<string> = new Subject();
-  textInput = '';
+  private debouncer: Subject<string> = new Subject<string>();
+  private debouncerSubscription?: Subscription;
 
-  @Output()
-  public onValue: EventEmitter<string> = new EventEmitter();
+  @Input()
+  public initialValue = '';
 
   @Output()
   public onDebounce: EventEmitter<string> = new EventEmitter();
 
+  @Output()
+  public onValue: EventEmitter<string> = new EventEmitter();
+
 
   ngOnInit() {
-    this.debouncer.pipe(debounceTime(3000)).subscribe({
-      next: (value: string) => {
-        this.onDebounce.emit(value);
-      }
+    this.debouncerSubscription = this.debouncer.pipe(debounceTime(500)).subscribe({
+      next: (value: string) => this.onDebounce.emit(value),
     });
+  }
+
+  ngOnDestroy(): void {
+    this.debouncerSubscription?.unsubscribe();
   }
 
   emitValue(textInput: string): void {

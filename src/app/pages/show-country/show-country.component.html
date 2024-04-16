@@ -1,8 +1,4 @@
-<div *ngIf="!country; else divCountry" class="alert alert-info">
-  Espere un momento...
-</div>
-
-<ng-template #divCountry>
+<ng-container *ngIf="country">
   <div class="row">
     <div class="col-12 mb-4">
       <h1> País:
@@ -61,4 +57,18 @@
       <span class="badge bg-primary ms-2"> {{ country.translations.zho.common }} </span>
     </div>
   </div>
-</ng-template>
+</ng-container>
+
+<div *ngIf="!country && !noResults" class="alert alert-info">
+  Espere un momento...
+</div>
+
+<div *ngIf="noResults" class="alert alert-danger">
+  No existen resultados para este código.
+</div>
+
+<div class="overlay-spinner" *ngIf="showSpinner">
+  <svg>
+    <circle cx="70" cy="70" r="70"></circle>
+  </svg>
+</div>

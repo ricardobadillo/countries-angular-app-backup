@@ -1,44 +1,55 @@
 // Angular.
-import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { I18nSelectPipe, NgFor, NgIf, TitleCasePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 
 // Componentes.
 import { TableComponent } from 'src/app/components/table/table.component';
 
 // Modelos.
-import { Country } from '../../core/interfaces/country-interface';
+import { Country } from 'src/app/core/interfaces/country-interface';
+import { Region } from 'src/app/core/interfaces/region.type';
 
 // Servicios.
-import { CountryService } from '../../core/services/country.service';
+import { CountryService } from 'src/app/core/services/country.service';
 
 
 
 @Component({
-  imports: [ NgFor, NgIf, TitleCasePipe, TableComponent, ],
+  imports: [ I18nSelectPipe, NgFor, NgIf, TitleCasePipe, TableComponent, ],
   standalone: true,
   selector: 'app-region',
-  styles: [ ],
+  styleUrls: ['./region.component.css'],
   templateUrl: './region.component.html',
 })
-export default class RegionComponent {
+export default class RegionComponent implements OnInit {
 
-  activeRegion: string = '';
-  countries: Country[] = [];
-  regions: string[] = ['africa', 'americas', 'asia', 'europe', 'oceania'];
+  public countries: Array<Country> = [];
+  public regions: Array<Region> = ['africa', 'americas', 'asia', 'europe', 'oceania'];
+  public regionsMap = { africa: 'África', americas: 'América', asia: 'Asia', europe: 'Europa', oceania: 'Oceanía' };
+  public selectedRegion?: Region;
+  public showSpinner = false;
+
 
   constructor(private countryService: CountryService) { }
 
-  activateRegion(region: string) {
+  ngOnInit(): void {
+    this.selectedRegion = this.countryService.cacheStore.byRegion.region;
+    this.countries = this.countryService.cacheStore.byRegion.countries;
+  }
 
-    if (region === this.activeRegion) { return; }
+  activateRegion(region: Region) {
 
-    this.activeRegion = region;
+    if (region === this.selectedRegion) return;
+
+    this.selectedRegion = region;
+    this.showSpinner = true;
     this.countries = [];
 
-    this.countryService.searchCountryRegion(this.activeRegion)
-      .subscribe( countries => {
-        console.log(countries);
-        this.countries = countries;
+    this.countryService.searchRegion(this.selectedRegion)
+      .subscribe({
+        next: (countries: Array<Country>) => this.countries = countries,
+        error: (error) => console.log(error),
+        complete: () => this.showSpinner = false,
       });
   }
 }

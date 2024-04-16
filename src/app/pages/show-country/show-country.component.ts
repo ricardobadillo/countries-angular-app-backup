@@ -1,16 +1,13 @@
 // Angular.
 import { DecimalPipe, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
 
 // Modelos.
-import { Country } from '../../core/interfaces/country-interface';
-
-// RXJS.
-import { switchMap, tap } from 'rxjs/operators';
+import { Country } from 'src/app/core/interfaces/country-interface';
 
 // Servicios.
-import { CountryService } from '../../core/services/country.service';
+import { CountryService } from 'src/app/core/services/country.service';
 
 
 
@@ -18,30 +15,35 @@ import { CountryService } from '../../core/services/country.service';
   imports: [ DecimalPipe, NgIf, ],
   standalone: true,
   selector: 'app-show-country',
-  styles: [ ],
+  styleUrls: ['./show-country.component.css'],
   templateUrl: './show-country.component.html',
 })
 export default class ShowCountryComponent implements OnInit {
 
-  country!: Country;
+  public country!: Country;
+  public noResults = false;
+  public showSpinner = false;
 
-  constructor(private activatedRoute: ActivatedRoute, private countryService: CountryService) { }
+  @Input()
+  public id?: string;
+
+
+  constructor(private countryService: CountryService) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params
-      .pipe(
-        switchMap((param) => this.countryService.getCountry(param.id)),
-        tap(console.log)
-      )
-      .subscribe({
-        next: (country) => {
-          this.country = country[0];
-          console.log(this.country);
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
-  }
 
+    if (this.id) {
+      this.showSpinner = true;
+
+      this.countryService.getCountryByAlphaCode(this.id).subscribe({
+        next: (country: Country | null) => {
+          if (country) this.country = country;
+        },
+        error: (error: HttpErrorResponse) => {
+          if (error.status === 400) this.noResults = true;
+        },
+        complete: () => this.showSpinner = false,
+      });
+    }
+  }
 }

@@ -13,7 +13,7 @@
     <tr *ngFor="let country of countries; let i = index">
       <td> {{ i + 1 }} </td>
       <td>
-        <img [alt]="country.name.common" src]="country.flags.png" [style.width.px]="50">
+        <img [alt]="country.name.common" [src]="country.flags.png" [style.width.px]="50">
       </td>
       <td> {{ country.name.common }} </td>
       <td> {{ country.population | number }} </td>

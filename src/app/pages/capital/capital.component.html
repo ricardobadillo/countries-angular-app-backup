@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col">
-    <app-input (onValue)="searchCountry($event)" (onDebounce)="suggestion($event)"/>
+    <app-input [initialValue]="textInput" (onValue)="searchCountry($event)" (onDebounce)="suggestion($event)"/>
   </div>
 </div>
 
@@ -17,4 +17,10 @@
   <div class="col">
     <app-table [countries]="countries"/>
   </div>
+</div>
+
+<div class="overlay-spinner" *ngIf="showSpinner">
+  <svg>
+    <circle cx="70" cy="70" r="70"></circle>
+  </svg>
 </div>

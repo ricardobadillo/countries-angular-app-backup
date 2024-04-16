@@ -1,16 +1,16 @@
 // Angular.
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 // Componentes.
 import { InputComponent } from 'src/app/components/input/input.component';
-
-// Modelos.
-import { Country } from '../../core/interfaces/country-interface';
 import { TableComponent } from 'src/app/components/table/table.component';
 
+// Modelos.
+import { Country } from 'src/app/core/interfaces/country-interface';
+
 // Servicios.
-import { CountryService } from '../../core/services/country.service';
+import { CountryService } from 'src/app/core/services/country.service';
 
 
 
@@ -18,29 +18,36 @@ import { CountryService } from '../../core/services/country.service';
   imports: [ NgIf, InputComponent, TableComponent, ],
   standalone: true,
   selector: 'app-capital',
-  styles: [ ],
+  styleUrls: ['./capital.component.css'],
   templateUrl: './capital.component.html',
 })
-export default class CapitalComponent {
+export default class CapitalComponent implements OnInit {
 
-  countries: Array<Country> = [];
-  error = false;
-  textInput = '';
+  public countries: Array<Country> = [];
+  public error = false;
+  public showSpinner = false;
+  public textInput = '';
 
 
   constructor(private countryService: CountryService) { }
 
+  ngOnInit(): void {
+    this.countries = this.countryService.cacheStore.byCapital.countries;
+    this.textInput = this.countryService.cacheStore.byCapital.textInput;
+  }
+
   searchCountry(textInput: string): void {
     this.error = false;
+    this.showSpinner = true;
     this.textInput = textInput;
 
-    this.countryService.searchCountryCapital(textInput).subscribe({
+    this.countryService.searchCapital(textInput).subscribe({
       next: (countries: Array<Country>) => this.countries = countries,
-      error: (error) => {
-        console.log(error);
+      error: () => {
         this.error = true;
         this.countries = [];
-      }
+      },
+      complete: () => this.showSpinner = false,
     });
   }
 

@@ -1,10 +1,11 @@
-<form autocomplete="off" (ngSubmit)="searchFromFormEvent(textInput.value)">
+<form autocomplete="off" (ngSubmit)="emitValue(textInput.value)">
   <input
     class="form-control"
     name="search"
     placeholder="Buscar"
     type="text"
+    [value]="initialValue"
     #textInput
-    (keyup.enter)="emitValue(textInput.value)"
+    (keyup)="searchFromFormEvent(textInput.value)"
   >
 </form>
