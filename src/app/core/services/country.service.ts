@@ -15,7 +15,7 @@ import { delay, map, Observable, tap } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class CountryService {
 
-  private apiUrl: string = 'https://restcountries.com/v3.1';
+  private apiBase: string = 'https://restcountries.com/v3.1';
 
   public cacheStore: CacheStore = {
     byCapital:   { textInput: '', countries: [] },
@@ -27,18 +27,18 @@ export class CountryService {
     this.loadFromLocalStorage();
   }
 
-  private saveToLocalStorage() {
+  private saveToLocalStorage(): void {
     localStorage.setItem('cacheStore', JSON.stringify(this.cacheStore));
   }
 
-  private loadFromLocalStorage() {
+  private loadFromLocalStorage(): void {
     if (!localStorage.getItem('cacheStore')) return;
 
     this.cacheStore = JSON.parse(localStorage.getItem('cacheStore')!);
   }
 
   searchCountry(country: string): Observable<Array<Country>> {
-    return this.http.get<Array<Country>>(`${ this.apiUrl }/name/${ country }`)
+    return this.http.get<Array<Country>>(`${ this.apiBase }/name/${ country }`)
       .pipe(
         delay(3000),
         tap((countries: Array<Country>) => this.cacheStore.byCountries = { textInput: country, countries }),
@@ -47,7 +47,7 @@ export class CountryService {
   }
 
   searchCapital(capital: string): Observable<Array<Country>> {
-    return this.http.get<Array<Country>>(`${ this.apiUrl }/capital/${ capital }`)
+    return this.http.get<Array<Country>>(`${ this.apiBase }/capital/${ capital }`)
       .pipe(
         delay(3000),
         tap((countries: Array<Country>) => this.cacheStore.byCapital = { textInput: capital, countries }),
@@ -56,7 +56,7 @@ export class CountryService {
   }
 
   searchRegion(region: Region): Observable<Array<Country>> {
-    return this.http.get<Array<Country>>(`${ this.apiUrl }/region/${ region }`)
+    return this.http.get<Array<Country>>(`${ this.apiBase }/region/${ region }`)
       .pipe(
         delay(3000),
         tap((countries: Array<Country>) => this.cacheStore.byRegion = { region, countries }),
@@ -65,7 +65,7 @@ export class CountryService {
   }
 
   getCountryByAlphaCode(code: string): Observable<Country | null> {
-    return this.http.get<Array<Country>>(`${ this.apiUrl }/alpha/${ code }`)
+    return this.http.get<Array<Country>>(`${ this.apiBase }/alpha/${ code }`)
       .pipe(
         map((countries: Array<Country>) => countries.length > 0 ? countries[0] : null),
         delay(3000),
