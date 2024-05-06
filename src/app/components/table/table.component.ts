@@ -9,7 +9,7 @@ import { Country } from '../../core/interfaces/country-interface';
 
 
 @Component({
-  imports: [ DecimalPipe, NgFor, RouterModule ],
+  imports: [ DecimalPipe, NgFor, RouterModule, ],
   selector: 'app-table',
   standalone: true,
   styles: [ ],

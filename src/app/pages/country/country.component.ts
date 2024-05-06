@@ -1,6 +1,6 @@
 // Angular.
 import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 // Componentes.
@@ -31,7 +31,7 @@ export default class CountryComponent implements OnInit {
   public showSpinner = false;
   public showSuggestion = false;
 
-  constructor(private countryService: CountryService) { }
+  private countryService = inject(CountryService);
 
   ngOnInit(): void {
     this.countries = this.countryService.cacheStore.byCountries.countries;

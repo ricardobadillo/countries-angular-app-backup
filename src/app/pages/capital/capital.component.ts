@@ -1,6 +1,6 @@
 // Angular.
 import { NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 // Componentes.
 import { InputComponent } from 'src/app/components/input/input.component';
@@ -28,8 +28,7 @@ export default class CapitalComponent implements OnInit {
   public showSpinner = false;
   public textInput = '';
 
-
-  constructor(private countryService: CountryService) { }
+  private countryService = inject(CountryService);
 
   ngOnInit(): void {
     this.countries = this.countryService.cacheStore.byCapital.countries;

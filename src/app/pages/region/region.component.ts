@@ -1,6 +1,6 @@
 // Angular.
 import { I18nSelectPipe, NgFor, NgIf, TitleCasePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 // Componentes.
 import { TableComponent } from 'src/app/components/table/table.component';
@@ -29,8 +29,7 @@ export default class RegionComponent implements OnInit {
   public selectedRegion?: Region;
   public showSpinner = false;
 
-
-  constructor(private countryService: CountryService) { }
+  private countryService = inject(CountryService);
 
   ngOnInit(): void {
     this.selectedRegion = this.countryService.cacheStore.byRegion.region;

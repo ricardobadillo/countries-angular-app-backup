@@ -1,7 +1,7 @@
 // Angular.
 import { DecimalPipe, NgIf } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 
 // Modelos.
 import { Country } from 'src/app/core/interfaces/country-interface';
@@ -27,8 +27,7 @@ export default class ShowCountryComponent implements OnInit {
   @Input()
   public id?: string;
 
-
-  constructor(private countryService: CountryService) { }
+  private countryService = inject(CountryService);
 
   ngOnInit(): void {
 
